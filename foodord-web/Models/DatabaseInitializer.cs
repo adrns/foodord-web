@@ -7,6 +7,7 @@ using System.Web;
 namespace foodord_web.Models
 {
     public class DatabaseInitializer : DropCreateDatabaseIfModelChanges<FoodOrderingContext>
+    //public class DatabaseInitializer : DropCreateDatabaseAlways<FoodOrderingContext>
     {
         protected override void Seed(FoodOrderingContext context)
         {
@@ -17,6 +18,8 @@ namespace foodord_web.Models
                 new Category{Name="Italok"},
                 new Category{Name="Desszertek"}
             };
+
+            categories.ForEach(e => context.Categories.Add(e));
 
             var foods = new List<Food>
             {
@@ -42,7 +45,6 @@ namespace foodord_web.Models
                 new Food { Category=categories.ElementAt(3), Name="Fahéjas palacsinta", Description="", Price=190, Spicy=false, Vegetarian=false }
             };
 
-            categories.ForEach(e => context.Categories.Add(e));
             foods.ForEach(e => context.Foods.Add(e));
 
             context.SaveChanges();

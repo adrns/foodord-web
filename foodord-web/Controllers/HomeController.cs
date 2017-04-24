@@ -11,10 +11,15 @@ namespace foodord_web.Controllers
     {
         private FoodOrderingContext entities;
 
+        public HomeController()
+        {
+            entities = new FoodOrderingContext();
+        }
+
         // GET: Home
         public ActionResult Index()
         {
-            return View("Index");
+            return View("Index", entities.Foods.ToList());
         }
     }
 }
