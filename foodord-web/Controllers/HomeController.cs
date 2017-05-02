@@ -19,7 +19,7 @@ namespace foodord_web.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            return View("Index", entities.Foods.ToList());
+            return View("Index", entities.Categories.ToList());
         }
     }
 }

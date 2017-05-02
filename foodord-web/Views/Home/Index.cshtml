@@ -1,7 +1,11 @@
 ﻿@using foodord_web.Models;
 
-@model List<Food>
+@model List<Category>
 
-<p>
-    Hello WAF, @Model.Count() étel van az adatbázisban!
-</p>
+<h2>Kategóriák</h2>
+@foreach (Category category in Model)
+{
+    <p>
+        @category.Name
+    </p>
+}
