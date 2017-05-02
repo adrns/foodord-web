@@ -1,11 +1,16 @@
 ﻿@using foodord_web.Models;
 
-@model List<Category>
-
 <h2>Kategóriák</h2>
-@foreach (Category category in Model)
+@foreach (Category category in ViewBag.Categories)
 {
     <p>
         @category.Name
+    </p>
+}
+<h2>Legtöbbet rendelt tételeink</h2>
+@foreach (Food food in ViewBag.TopFoods)
+{
+    <p>
+        @food.Name
     </p>
 }

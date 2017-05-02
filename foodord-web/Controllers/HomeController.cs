@@ -19,7 +19,9 @@ namespace foodord_web.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            return View("Index", entities.Categories.ToList());
+            ViewBag.Categories = entities.Categories.ToList();
+            ViewBag.TopFoods = entities.Foods.ToList(); //TODO create real query
+            return View("Index");
         }
     }
 }
