@@ -1,16 +1,22 @@
 ﻿@using foodord_web.Models;
 
-<h2>Kategóriák</h2>
-@foreach (Category category in ViewBag.Categories)
-{
-    <p>
-        @category.Name
-    </p>
-}
-<h2>Legtöbbet rendelt tételeink</h2>
-@foreach (Food food in ViewBag.TopFoods)
-{
-    <p>
-        @food.Name
-    </p>
-}
+<div class="row">
+    <div class="col-md-6">
+        <h2>Kategóriák</h2>
+        @foreach (Category category in ViewBag.Categories)
+        {
+            <p>
+                @category.Name
+            </p>
+        }
+    </div>
+    <div class="col-md-6">
+        <h2>Legtöbbet rendelt tételeink</h2>
+        @foreach (Food food in ViewBag.TopFoods)
+        {
+            <p>
+                @food.Name
+            </p>
+        }
+    </div>
+</div>
