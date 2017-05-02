@@ -13,5 +13,10 @@ namespace foodord_web.Models
         public string Phone { get; set; }
         public DateTime OrderDate { get; set; }
         public virtual ICollection<Food> Foods { get; set; }
+
+        public Order()
+        {
+            Foods = new HashSet<Food>();
+        }
     }
 }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
 
 namespace foodord_web.Models
 {
@@ -15,8 +14,8 @@ namespace foodord_web.Models
             {
                 new Category{Name="Hamburger"},
                 new Category{Name="Pizza"},
-                new Category{Name="Italok"},
-                new Category{Name="Desszertek"}
+                new Category{Name="Ital"},
+                new Category{Name="Desszert"}
             };
 
             categories.ForEach(e => context.Categories.Add(e));
@@ -46,6 +45,26 @@ namespace foodord_web.Models
             };
 
             foods.ForEach(e => context.Foods.Add(e));
+
+            Random random = new Random(45126);
+            int span = 60 * 60 * 24 * 4;
+            DateTime baseDate = DateTime.Now.AddMonths(-2);
+
+            var orders = new List<Order>();
+            for (int i = 0; i < 32; i++)
+            {
+                int items = random.Next() % 5 + 1;
+                List<Food> foodList = new List<Food>();
+                for (int j = 0; j < items; j++)
+                {
+                    foodList.Add(foods.ElementAt(random.Next() % foods.Count));
+                }
+                context.Orders.Add(new Order {
+                    Address = "1117 Budapest, Pázmány Péter sétány 1/C",
+                    Phone = "3613722500",
+                    Foods = foodList,
+                    OrderDate = baseDate.AddSeconds(random.Next() % span) });
+            }
 
             context.SaveChanges();
         }

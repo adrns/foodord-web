@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace foodord_web.Models
@@ -13,5 +14,11 @@ namespace foodord_web.Models
         public int Price { get; set; }
         public bool Spicy { get; set; }
         public bool Vegetarian { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
+
+        public Food()
+        {
+            Orders = new HashSet<Order>();
+        }
     }
 }
