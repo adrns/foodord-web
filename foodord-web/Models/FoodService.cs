@@ -21,7 +21,14 @@ namespace foodord_web.Models
 
         public List<Food> GetTopTenFoods()
         {
-            return entities.Foods.ToList(); //TODO do a real query
+            var foods = entities.Orders
+                .SelectMany(order => order.Foods)
+                .GroupBy(food => food.Id)
+                .OrderByDescending(group => group.Count())
+                .Take(10)
+                .Select(group => group.FirstOrDefault());
+
+            return foods.ToList();
         }
 
         public List<Food> GetFoodsByCategory(int category)

@@ -5,9 +5,9 @@
 + [ ] PageLayout.cshtml - *shared page layout among pages*
     * [ ] display basket size and sum in a header
 + [ ] Index.cshtml - *main site*
-    * [ ] basic structure
+    * [x] basic structure
     * [ ] display categories and link them to FoodList.cshtml
-    * [ ] display first 10 of the most popular items 
+    * [x] display first 10 of the most popular items 
 + [ ] FoodList.cshtml - *lists foods in a category*
     * [ ] display a list of foods (with price, name and details tags)
     * [ ] filter by string containment
