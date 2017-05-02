@@ -106,6 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Views\Food\Index.cshtml" />
     <None Include="Views\Shared\PageLayout.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -113,6 +114,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\FoodController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -122,6 +125,7 @@
     <Compile Include="Models\Entities\Food.cs" />
     <Compile Include="Models\FoodOrderingContext.cs" />
     <Compile Include="Models\Entities\Order.cs" />
+    <Compile Include="Models\FoodService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
