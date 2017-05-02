@@ -6,7 +6,7 @@
         @foreach (Category category in ViewBag.Categories)
         {
             <p>
-                @category.Name
+                <a href="@Url.Action("Category", new { id = category.Id })">@category.Name</a>
             </p>
         }
     </div>

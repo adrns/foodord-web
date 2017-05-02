@@ -107,7 +107,7 @@
   <ItemGroup>
     <Content Include="Content\style.css" />
     <Content Include="Global.asax" />
-    <Content Include="Views\Food\Index.cshtml" />
+    <Content Include="Views\Home\Category.cshtml" />
     <None Include="Views\Shared\PageLayout.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -116,7 +116,6 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\FoodController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
