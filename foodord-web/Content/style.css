@@ -22,12 +22,6 @@ body {
   }
 }
 
-.inset-box {
-    padding: 16px;
-    background-color: #f2f2f2;
-    border-radius: 10px;
-}
-
 .food-price {
     text-align: right;
 }
