@@ -1,18 +1,14 @@
 ﻿@using foodord_web.Models;
 
 <h2>@ViewBag.Category</h2>
+<div class="inset-box">
+    @if (ViewBag.Foods.Count == 0)
+    {
+        <p>There are no foods in this category :(</p>
+    }
 
-@if (ViewBag.Foods.Count == 0)
-{
-    <p>There are no foods in this category :(</p>
-}
-
-@foreach (Food food in ViewBag.Foods)
-{
-    <p>
-        @food.Name
-    </p>
-    <p>
-        @food.Description
-    </p>
-}
+    @foreach (Food food in ViewBag.Foods)
+    {
+        @Html.Partial("_Food", food);
+    }
+</div>

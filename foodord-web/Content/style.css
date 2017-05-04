@@ -1,3 +1,40 @@
-﻿body {
-    padding: 20px;
+﻿/* Space out content a bit */
+body {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+/* Custom page header */
+.header {
+  padding-bottom: 1rem;
+  padding-right: 1rem;
+  border-bottom: .05rem solid #e5e5e5;
+}
+
+.header .nav {
+    float: right;
+}
+
+/* Customize container */
+@media (min-width: 48em) {
+  .container {
+    max-width: 70rem;
+  }
+}
+
+.inset-box {
+    padding: 16px;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+}
+
+.food-price {
+    text-align: right;
+}
+
+.food-description {
+    background-color: #e4e4e4;
+    padding: 8px 16px;
+    margin: 8px 0;
+    border-radius: 8px;
 }
