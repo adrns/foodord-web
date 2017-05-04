@@ -24,7 +24,7 @@ namespace foodord_web.Models
             {
                 new Food { Category=categories.ElementAt(0), Name="Camembert burger \"L\"", Description="Nagy buciban rántott camembert, jégsaláta, hagymalekvár", Price=1720, Spicy=false, Vegetarian=false },
                 new Food { Category=categories.ElementAt(0), Name="Camembert burger \"M\"", Description="Kis buciban rántott camembert, jégsaláta, hagymalekvár", Price=1090, Spicy=false, Vegetarian=false },
-                new Food { Category=categories.ElementAt(0), Name="Dupla csirkeburger", Description="200g csirkemell filé kis buciban", Price=1290, Spicy=false, Vegetarian=false },
+                new Food { Category=categories.ElementAt(0), Name="Dupla csilis csirkeburger", Description="200g csirkemell filé kis buciban, jalapeno", Price=1290, Spicy=true, Vegetarian=false },
                 new Food { Category=categories.ElementAt(0), Name="Dupla marhaburger", Description="200g marhahúspogácsa kis buciban ", Price=1420, Spicy=false, Vegetarian=false },
                 new Food { Category=categories.ElementAt(1), Name="Bolognai pizza", Description="Bolognai alap, mozzarella", Price=1550, Spicy=false, Vegetarian=false },
                 new Food { Category=categories.ElementAt(1), Name="Calzone", Description="hajtott pizza, pizzaszósz, sonka, gomba, tükörtojás, mozzarella", Price=1790, Spicy=false, Vegetarian=false },

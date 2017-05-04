@@ -10,7 +10,17 @@
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 <strong>@Model.Price Ft</strong>
             </button>
-            <h3 class="panel-title"><strong>@Model.Name</strong></h3>
+            <h3 class="panel-title">
+                <strong>@Model.Name</strong>
+                @if (Model.Vegetarian)
+                {
+                    <span class="label label-success"><span class="glyphicon glyphicon-leaf" aria-hidden="true"></span>&nbsp;vegetáriánus</span>
+                }
+                @if (Model.Spicy)
+                {
+                    <span class="label label-danger"><span class="glyphicon glyphicon-fire" aria-hidden="true"></span>&nbsp;csípős</span>
+                }
+            </h3>
         </div>
         @if (null != Model.Description && Model.Description.Length > 0)
         {
