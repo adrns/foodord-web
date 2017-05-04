@@ -1,5 +1,6 @@
 ﻿@{
     Layout = null;
+    var activeHome = (null != ViewBag.IsHome && ViewBag.IsHome) ? "active" : "";
 }
 
 <!DOCTYPE html>
@@ -19,7 +20,7 @@
         <div class="header clearfix">
             <nav>
                 <ul class="nav nav-pills">
-                    <li role="presentation" class="active"><a href="@HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority)@Url.Content("~/")">Főoldal</a></li>
+                    <li role="presentation" class="@activeHome"><a href="@HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority)@Url.Content("~/")">Főoldal</a></li>
                     <li role="presentation"><a href="#">Kosár</a></li>
                 </ul>
             </nav>
