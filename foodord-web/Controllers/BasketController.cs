@@ -1,8 +1,4 @@
 ﻿using foodord_web.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace foodord_web.Controllers
@@ -11,14 +7,36 @@ namespace foodord_web.Controllers
     {
         private Basket basket;
 
-        public BasketController() : base()
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            basket = new Basket(foodService);
+            base.OnActionExecuting(filterContext);
+
+            basket = CreateBasket();
+        }
+
+        protected override void OnActionExecuted(ActionExecutedContext filterContext)
+        {
+            base.OnActionExecuted(filterContext);
+
+            Session["basket"] = basket;
+        }
+
+        private Basket CreateBasket()
+        {
+            object cached = Session["basket"];
+            if (cached != null && cached is Basket)
+            {
+                return (Basket)Session["basket"];
+            }
+
+            return new Basket(foodService);
         }
 
         public ActionResult Add(int foodId)
         {
-            return Json(new { result = "ok", id = foodId });
+            basket.Add(foodId);
+
+            return Json(new { result = "ok", id = foodId, total = basket.Total() });
         }
     }
 }
