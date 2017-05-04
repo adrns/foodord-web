@@ -3,22 +3,18 @@
 <div class="row">
     <div class="col-md-6">
         <h2>Kategóriák</h2>
-        <div class="well">
+        <div class="list-group">
             @foreach (Category category in ViewBag.Categories)
             {
-                <p>
-                    <a href="@Url.Action("Category", new { id = category.Id })" class="btn btn-primary btn-md active" role="button">@category.Name</a>
-                </p>
+                <a href="@Url.Action("Category", new { id = category.Id })" class="list-group-item" role="button">@category.Name</a>
             }
         </div>
     </div>
     <div class="col-md-6">
         <h2>Legtöbbet rendelt tételeink</h2>
-        <div class="well">
-            @foreach (Food food in ViewBag.TopFoods)
-            {
-                @Html.Partial("_Food", food);
-            }
-        </div>
+        @foreach (Food food in ViewBag.TopFoods)
+        {
+            @Html.Partial("_Food", food);
+        }
     </div>
 </div>

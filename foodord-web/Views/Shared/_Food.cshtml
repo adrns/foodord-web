@@ -1,25 +1,20 @@
 ﻿@model foodord_web.Models.Food
-@if (Model != null) {
+@if (Model != null)
+{
     var foodClass = "";
     foodClass = Model.Spicy ? foodClass + "spicy " : foodClass;
     foodClass = Model.Vegetarian ? foodClass + "vegetarian " : foodClass;
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xs-8 @foodClass">
-                <p>@Model.Name</p>
-            </div>
-            <div class="col-xs-4 food-price">
-                <button type="button" class="btn btn-xs btn-success" aria-label="Left Align">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                    <strong>@Model.Price Ft</strong>
-                </button>
-            </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <button type="button" class="btn btn-xs btn-success float-right" aria-label="Right Align">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <strong>@Model.Price Ft</strong>
+            </button>
+            <h3 class="panel-title"><strong>@Model.Name</strong></h3>
         </div>
         @if (null != Model.Description && Model.Description.Length > 0)
         {
-            <div class="row">
-                <div class="col-xs-12"><p class="food-description"><em>@Model.Description</em></p></div>
-            </div>
+            <div class="panel-body">@Model.Description</div>
         }
     </div>
 }
