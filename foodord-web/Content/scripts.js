@@ -1,8 +1,16 @@
 ﻿"use strict";
 $(document).ready(function () {
-    console.log("ok, jquery works!");
     $("button[data-basket='add']").click(function (event) {
-        let itemId = $(event.currentTarget).attr("data-food-id");
-        console.log(itemId);
+        let foodId = $(event.currentTarget).attr("data-food-id");
+        $.ajax({
+            url: "/Basket/Add",
+            data: {
+                foodId: foodId
+            },
+            type: "POST",
+            dataType: "json"
+        }).done(function (json) {
+            console.log(json);
+        });
     });
 });
