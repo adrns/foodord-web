@@ -49,5 +49,10 @@ namespace foodord_web.Models
                 .Where(food => food.Category.Id == category && (food.Name.Contains(filter) || food.Description.Contains(filter)))
                 .ToList();
         }
+
+        public Food GetFood(int foodId)
+        {
+            return entities.Foods.FirstOrDefault(food => food.Id == foodId);
+        }
     }
 }
