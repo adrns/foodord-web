@@ -1,12 +1,9 @@
 ﻿@model foodord_web.Models.Food
 @if (Model != null)
 {
-    var foodClass = "";
-    foodClass = Model.Spicy ? foodClass + "spicy " : foodClass;
-    foodClass = Model.Vegetarian ? foodClass + "vegetarian " : foodClass;
     <div class="panel panel-default">
         <div class="panel-heading">
-            <button type="button" class="btn btn-xs btn-success float-right" aria-label="Right Align">
+            <button type="button" class="btn btn-xs btn-success pull-right" aria-label="Right Align">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 <strong>@Model.Price Ft</strong>
             </button>

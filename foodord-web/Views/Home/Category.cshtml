@@ -1,12 +1,32 @@
 ﻿@using foodord_web.Models;
 
-<h2>@ViewBag.Category</h2>
-@if (ViewBag.Foods.Count == 0)
-{
-    <p>There are no foods in this category :(</p>
+@{
+    var category = null != ViewBag.Category && ViewBag.Category.Length > 0 ? ViewBag.Category : "Ismeretlen kategória";
 }
 
-@foreach (Food food in ViewBag.Foods)
-{
-    @Html.Partial("_Food", food);
-}
+<h2>@category</h2>
+<div class="container">
+    @using (Html.BeginForm("Category", "Home", FormMethod.Get))
+    {
+        <div class="input-group">
+            <input type="text" name="filter" class="form-control" placeholder="Étel neve..." value="@Request.Params["filter"]" />
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="submit">Keresés</button>
+            </span>
+        </div>
+    }
+</div>
+<div class="spacer"></div>
+<div class="container">
+    @if (ViewBag.Foods.Count == 0)
+    {
+        <div class="alert alert-danger" role="alert">
+            <p>Nincsen találat ilyen ételekre.</p>
+        </div>
+    }
+
+    @foreach (Food food in ViewBag.Foods)
+    {
+        @Html.Partial("_Food", food);
+    }
+</div>

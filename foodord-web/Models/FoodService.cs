@@ -36,11 +36,18 @@ namespace foodord_web.Models
             return entities.Foods.Where(food => food.Category.Id == category).ToList();
         }
 
-        public String GetCategoryName(int id)
+        public string GetCategoryName(int id)
         {
             Category category = entities.Categories.Find(id);
 
             return category == null ? "" : category.Name;
+        }
+
+        public List<Food> GetFilteredFoodsByCategory(int category, string filter)
+        {
+            return entities.Foods
+                .Where(food => food.Category.Id == category && (food.Name.Contains(filter) || food.Description.Contains(filter)))
+                .ToList();
         }
     }
 }

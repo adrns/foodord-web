@@ -25,3 +25,9 @@ body {
 .float-right {
     float: right;
 }
+
+.spacer {
+    margin: 0;
+    padding: 0;
+    height: 36px;
+}

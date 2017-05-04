@@ -21,7 +21,8 @@ namespace foodord_web.Controllers
             int categoryId = null == id ? 0 : (int)id;
 
             ViewBag.Category = foodService.GetCategoryName(categoryId);
-            ViewBag.Foods = foodService.GetFoodsByCategory(categoryId);
+            string filter = Request.QueryString["filter"];
+            ViewBag.Foods = null != filter && filter.Length > 0 ? foodService.GetFilteredFoodsByCategory(categoryId, filter) : foodService.GetFoodsByCategory(categoryId);
 
             return View("Category");
         }
