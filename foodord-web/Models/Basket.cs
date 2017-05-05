@@ -8,12 +8,12 @@ namespace foodord_web.Models
         const int PRICE_LIMIT = 20000;
         public enum BasketResult {Success, LimitReached, NoSuchFood};
         private FoodService foodService;
-        private List<Food> items;
+        private List<Food> foods;
 
         public Basket(FoodService foodService)
         {
             this.foodService = foodService;
-            items = new List<Food>();
+            foods = new List<Food>();
         }
 
         public BasketResult Add(int foodId)
@@ -31,7 +31,7 @@ namespace foodord_web.Models
             }
             else
             {
-                items.Add(food);
+                foods.Add(food);
                 return BasketResult.Success;
             }
         }
@@ -45,20 +45,20 @@ namespace foodord_web.Models
                 return BasketResult.NoSuchFood;
             }
 
-            return items.Remove(food) ? BasketResult.Success : BasketResult.NoSuchFood;
+            return foods.Remove(food) ? BasketResult.Success : BasketResult.NoSuchFood;
         }
 
         public int Total()
         {
             int sum = 0;
-            items.ForEach(food => sum += food.Price);
+            foods.ForEach(food => sum += food.Price);
 
             return sum;
         }
 
         public int Count()
         {
-            return items.Count();
+            return foods.Count();
         }
     }
 }
