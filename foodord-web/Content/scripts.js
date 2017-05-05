@@ -18,6 +18,7 @@ $(document).ready(function () {
 
 function handleBasketResult(basket) {
     $("#food_count").html(basket.count);
+    $("#basket_total").html(basket.total);
     if ("failure" == basket.result) {
         switch (basket.reason) {
             case "limitreached": displayError("Az ételek összege nem haladhatja meg a " + PRICE_LIMIT + " Ft-ot!"); break;
