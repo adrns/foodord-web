@@ -109,6 +109,7 @@
     <Content Include="Content\style.css" />
     <Content Include="Global.asax" />
     <Content Include="Views\Home\Category.cshtml" />
+    <Content Include="Views\Home\Basket.cshtml" />
     <None Include="Views\Shared\PageLayout.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

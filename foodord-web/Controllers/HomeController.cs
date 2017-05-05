@@ -26,5 +26,13 @@ namespace foodord_web.Controllers
 
             return View("Category");
         }
+
+        [HttpGet]
+        public ActionResult Basket()
+        {
+            ViewBag.IsBasket = true;
+
+            return View("Basket", basket);
+        }
     }
 }

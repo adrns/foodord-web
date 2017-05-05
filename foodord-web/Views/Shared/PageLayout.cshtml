@@ -1,6 +1,7 @@
 ﻿@{
     Layout = null;
     var activeHome = (null != ViewBag.IsHome && ViewBag.IsHome) ? "active" : "";
+    var activeBasket = (null != ViewBag.IsBasket && ViewBag.IsBasket) ? "active" : "";
 }
 
 <!DOCTYPE html>
@@ -24,9 +25,9 @@
         <div class="header clearfix">
             <nav>
                 <ul class="nav nav-pills">
-                    <li role="presentation" class="@activeHome"><a href="@HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority)@Url.Content("~/")">Főoldal</a></li>
-                    <li role="presentation">
-                        <a href="#">
+                    <li role="presentation" class="@activeHome"><a href="@Url.Action("Index", "Home")">Főoldal</a></li>
+                    <li role="presentation" class="@activeBasket">
+                        <a href="@Url.Action("Basket", "Home")">
                             <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp;Kosár&nbsp;
                             <span class="badge">
                                 <span id="food_count">@ViewBag.Basket.Count()</span> tétel, <span id="basket_total">@ViewBag.Basket.Total()</span> Ft
