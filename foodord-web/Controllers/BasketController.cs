@@ -34,9 +34,17 @@ namespace foodord_web.Controllers
 
         public ActionResult Add(int foodId)
         {
-            basket.Add(foodId);
+            switch (basket.Add(foodId))
+            {
+                case Basket.BasketResult.Success:
+                    return Json(new { result = "success", foodId = foodId, total = basket.Total(), count = basket.Count() });
+                case Basket.BasketResult.LimitReached:
+                    return Json(new { result = "failure", reason = "limitreached", foodId = foodId, total = basket.Total(), count = basket.Count() });
+                case Basket.BasketResult.NoSuchFood:
+                    return Json(new { result = "failure", reason = "nosuchfood", foodId = foodId, total = basket.Total(), count = basket.Count() });
+            }
 
-            return Json(new { result = "ok", id = foodId, total = basket.Total() });
+            return Json(new { result = "success", id = foodId, total = basket.Total() });
         }
     }
 }

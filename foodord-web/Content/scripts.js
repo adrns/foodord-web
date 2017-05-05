@@ -1,4 +1,5 @@
 ﻿"use strict";
+let PRICE_LIMIT = 20000;
 $(document).ready(function () {
     $("button[data-basket='add']").click(function (event) {
         let foodId = $(event.currentTarget).attr("data-food-id");
@@ -10,7 +11,26 @@ $(document).ready(function () {
             type: "POST",
             dataType: "json"
         }).done(function (json) {
-            console.log(json);
+            handleBasketResult(json);
         });
     });
 });
+
+function handleBasketResult(basket) {
+    $("#food_count").html(basket.count);
+    if ("failure" == basket.result) {
+        switch (basket.reason) {
+            case "limitreached": displayError("Az ételek összege nem haladhatja meg a " + PRICE_LIMIT + " Ft-ot!"); break;
+            case "nosuchfood": displayError("Nem található ilyen étel az adatbázisunkban/kosaradban!"); break;
+        }
+    }
+}
+
+function displayError(message) {
+    $("#error_message").html(message);
+    $("#error_box").fadeIn(400, function () {
+        setTimeout(function () {
+            $("#error_box").fadeOut();
+        }, 5000);
+    });
+}

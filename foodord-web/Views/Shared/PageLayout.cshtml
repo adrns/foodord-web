@@ -18,11 +18,14 @@
 </head>
 <body>
     <div class="container">
+        <div id="error_box" class="alert alert-danger" role="alert">
+            <p id="error_message">Figyelmeztetés</p>
+        </div>
         <div class="header clearfix">
             <nav>
                 <ul class="nav nav-pills">
                     <li role="presentation" class="@activeHome"><a href="@HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority)@Url.Content("~/")">Főoldal</a></li>
-                    <li role="presentation"><a href="#">Kosár</a></li>
+                    <li role="presentation"><a href="#">Kosár</a><span id="food_count" class="badge">4</span></li>
                 </ul>
             </nav>
             <h3 class="text-muted">Étel rendelés</h3>

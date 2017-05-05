@@ -31,3 +31,7 @@ body {
     padding: 0;
     height: 36px;
 }
+
+#error_box {
+    display: none;
+}

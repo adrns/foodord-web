@@ -5,6 +5,8 @@ namespace foodord_web.Models
 {
     public class Basket
     {
+        const int PRICE_LIMIT = 20000;
+        public enum BasketResult {Success, LimitReached, NoSuchFood};
         private FoodService foodService;
         private List<Food> items;
 
@@ -14,24 +16,36 @@ namespace foodord_web.Models
             items = new List<Food>();
         }
 
-        public void Add(int foodId)
+        public BasketResult Add(int foodId)
         {
             Food food = foodService.GetFood(foodId);
 
-            if (null != food)
+            if (null == food)
+            {
+                return BasketResult.NoSuchFood;
+            }
+
+            if (PRICE_LIMIT < Total() + food.Price)
+            {
+                return BasketResult.LimitReached;
+            }
+            else
             {
                 items.Add(food);
+                return BasketResult.Success;
             }
         }
 
-        public void Remove(int foodId)
+        public BasketResult Remove(int foodId)
         {
             Food food = foodService.GetFood(foodId);
 
-            if (null != food)
+            if (null == food)
             {
-                items.Remove(food);
+                return BasketResult.NoSuchFood;
             }
+
+            return items.Remove(food) ? BasketResult.Success : BasketResult.NoSuchFood;
         }
 
         public int Total()
