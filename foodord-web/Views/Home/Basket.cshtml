@@ -21,7 +21,7 @@
                         var food = pair.Key;
                         var count = pair.Value;
                         var cost = count * food.Price;
-                        <li class="list-group-item">
+                        <li class="list-group-item food-list-item" data-food-id="@food.Id">
                             @food.Name <strong class="price-tag">(<span id="food-@food.Id-count">@count</span> db, <span id="food-@food.Id-cost">@cost</span> Ft)</strong>
                             <span class="pull-right">
                                 <button type="button" class="btn btn-xs btn-success" data-basket="add" data-food-id="@food.Id">

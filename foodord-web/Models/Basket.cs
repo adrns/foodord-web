@@ -73,6 +73,11 @@ namespace foodord_web.Models
             return 0 == foods.Count;
         }
 
+        public bool Contains(Food food)
+        {
+            return foods.Contains(food);
+        }
+
         public object Json()
         {
             List<object> foodList = new List<object>();

@@ -14,15 +14,44 @@ $(document).ready(function () {
             handleBasketResult(json);
         });
     });
+    $("button[data-basket='remove']").click(function (event) {
+        let foodId = $(event.currentTarget).attr("data-food-id");
+        $.ajax({
+            url: "/Basket/Remove",
+            data: {
+                foodId: foodId
+            },
+            type: "POST",
+            dataType: "json"
+        }).done(function (json) {
+            handleBasketResult(json);
+        });
+    });
 });
 
 function handleBasketResult(json) {
     $("#food_count").html(json.basket.count);
     $("#basket_total").html(json.basket.total);
 
+    if (json.basket.foods.length == 0) {
+        //TODO
+    }
+
     $.each(json.basket.foods, function (key, food) {
         $("#food-" + food.foodId + "-cost").html(food.cost);
         $("#food-" + food.foodId + "-count").html(food.count);
+    });
+    $(".food-list-item").each(function () {
+        let foodId = $(this).attr("data-food-id")
+        let result = json.basket.foods.find(function (food) {
+            return food.foodId == foodId;
+        });
+
+        if (undefined === result) {
+            $(this).fadeOut(400, function () {
+                $(this).remove();
+            });
+        }
     });
 
     if ("failure" == json.result) {

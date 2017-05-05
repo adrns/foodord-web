@@ -19,5 +19,17 @@ namespace foodord_web.Controllers
                     return Json(new { result = "failure", reason = "nosuchfood", basket = basket.Json() });
             }
         }
+
+        public ActionResult Remove(int foodId)
+        {
+            switch (basket.Remove(foodId))
+            {
+                default:
+                case Basket.BasketResult.Success:
+                    return Json(new { result = "success", basket = basket.Json() });
+                case Basket.BasketResult.NoSuchFood:
+                    return Json(new { result = "failure", reason = "nosuchfood", basket = basket.Json() });
+            }
+        }
     }
 }
