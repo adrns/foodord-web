@@ -25,7 +25,14 @@
             <nav>
                 <ul class="nav nav-pills">
                     <li role="presentation" class="@activeHome"><a href="@HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority)@Url.Content("~/")">Főoldal</a></li>
-                    <li role="presentation"><a href="#"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp;Kosár&nbsp;<span class="badge"><span id="food_count">0</span> tétel, <span id="basket_total">0</span> Ft</span></a></li>
+                    <li role="presentation">
+                        <a href="#">
+                            <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp;Kosár&nbsp;
+                            <span class="badge">
+                                <span id="food_count">@ViewBag.Basket.Count()</span> tétel, <span id="basket_total">@ViewBag.Basket.Total()</span> Ft
+                            </span>
+                        </a>
+                    </li>
                 </ul>
             </nav>
             <h3 class="text-muted">Étel rendelés</h3>

@@ -17,7 +17,7 @@ namespace foodord_web.Controllers
         {
             base.OnActionExecuting(filterContext);
 
-            basket = CreateBasket();
+            ViewBag.Basket = basket = CreateBasket();
         }
 
         protected override void OnActionExecuted(ActionExecutedContext filterContext)
