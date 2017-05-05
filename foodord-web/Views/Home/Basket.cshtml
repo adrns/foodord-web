@@ -1,3 +1,44 @@
-﻿@model foodord_web.Models.Basket
+﻿@using foodord_web.Models;
 
-@Model.Total()
+@model Basket
+
+<h2>Kosár tartalma</h2>
+<div class="spacer"></div>
+<div class="container-fluid">
+    @if (Model.Empty())
+    {
+        <div class="alert alert-info" role="alert">
+            <p>A kosár jelenleg üres.</p>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md-9">
+                <ul class="list-group">
+                    @foreach (KeyValuePair<Food, int> pair in Model.GetFoodsByCount())
+                    {
+                        var food = pair.Key;
+                        var count = pair.Value;
+                        var cost = count * food.Price;
+                        <li class="list-group-item">
+                            @food.Name <strong class="price-tag">(<span id="food-@food.Id-count">@count</span> db, <span id="food-@food.Id-cost">@cost</span> Ft)</strong>
+                            <span class="pull-right">
+                                <button type="button" class="btn btn-xs btn-success" data-basket="add" data-food-id="@food.Id">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </button>
+                                <strong class="price-tag">@food.Price Ft</strong>
+                                <button type="button" class="btn btn-xs btn-danger" data-basket="remove" data-food-id="@food.Id">
+                                    <span class="glyphicon glyphicon-minus"></span>
+                                </button>
+                            </span>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <strong>Összesen: @Model.Count() tétel, @Model.Total() Ft</strong>
+            </div>
+        </div>
+    }
+</div>

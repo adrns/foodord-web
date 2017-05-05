@@ -1,4 +1,5 @@
 ﻿using foodord_web.Models;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace foodord_web.Controllers
@@ -9,15 +10,14 @@ namespace foodord_web.Controllers
         {
             switch (basket.Add(foodId))
             {
+                default:
                 case Basket.BasketResult.Success:
-                    return Json(new { result = "success", foodId = foodId, total = basket.Total(), count = basket.Count() });
+                    return Json(new { result = "success", basket = basket.Json() });
                 case Basket.BasketResult.LimitReached:
-                    return Json(new { result = "failure", reason = "limitreached", foodId = foodId, total = basket.Total(), count = basket.Count() });
+                    return Json(new { result = "failure", reason = "limitreached", basket = basket.Json() });
                 case Basket.BasketResult.NoSuchFood:
-                    return Json(new { result = "failure", reason = "nosuchfood", foodId = foodId, total = basket.Total(), count = basket.Count() });
+                    return Json(new { result = "failure", reason = "nosuchfood", basket = basket.Json() });
             }
-
-            return Json(new { result = "success", id = foodId, total = basket.Total() });
         }
     }
 }

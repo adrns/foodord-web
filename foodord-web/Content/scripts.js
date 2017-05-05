@@ -16,11 +16,17 @@ $(document).ready(function () {
     });
 });
 
-function handleBasketResult(basket) {
-    $("#food_count").html(basket.count);
-    $("#basket_total").html(basket.total);
-    if ("failure" == basket.result) {
-        switch (basket.reason) {
+function handleBasketResult(json) {
+    $("#food_count").html(json.basket.count);
+    $("#basket_total").html(json.basket.total);
+
+    $.each(json.basket.foods, function (key, food) {
+        $("#food-" + food.foodId + "-cost").html(food.cost);
+        $("#food-" + food.foodId + "-count").html(food.count);
+    });
+
+    if ("failure" == json.result) {
+        switch (json.reason) {
             case "limitreached": displayError("Az ételek összege nem haladhatja meg a " + PRICE_LIMIT + " Ft-ot!"); break;
             case "nosuchfood": displayError("Nem található ilyen étel az adatbázisunkban/kosaradban!"); break;
         }

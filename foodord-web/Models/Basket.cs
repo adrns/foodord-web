@@ -60,5 +60,43 @@ namespace foodord_web.Models
         {
             return foods.Count();
         }
+
+        public Dictionary<Food, int> GetFoodsByCount()
+        {
+            return foods
+                .GroupBy(food => food)
+                .ToDictionary(group => group.Key, group => group.Count());
+        }
+
+        public bool Empty()
+        {
+            return 0 == foods.Count;
+        }
+
+        public object Json()
+        {
+            List<object> foodList = new List<object>();
+            foreach (KeyValuePair<Food, int> pair in GetFoodsByCount())
+            {
+                Food food = pair.Key;
+                int count = pair.Value;
+                int cost = count * food.Price;
+                foodList.Add(new
+                {
+                    foodId = food.Id,
+                    count = count,
+                    cost = cost
+                });
+            }
+
+            object basketJson = new
+            {
+                total = Total(),
+                count = Count(),
+                foods = foodList.ToArray()
+            };
+
+            return basketJson;
+        }
     }
 }

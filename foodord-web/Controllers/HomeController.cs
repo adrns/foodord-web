@@ -7,6 +7,7 @@ namespace foodord_web.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            basket.GetFoodsByCount();
             ViewBag.IsHome = true;
             ViewBag.Categories = foodService.GetCategories();
             ViewBag.TopFoods = foodService.GetTopTenFoods();

@@ -35,3 +35,7 @@ body {
 #error_box {
     display: none;
 }
+
+.price-tag {
+    margin: 4px;
+}

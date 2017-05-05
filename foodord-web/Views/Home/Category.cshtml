@@ -5,7 +5,7 @@
 }
 
 <h2>@category</h2>
-<div class="container">
+<div class="container-fluid">
     @using (Html.BeginForm("Category", "Home", FormMethod.Get))
     {
         <div class="input-group">
@@ -17,7 +17,7 @@
     }
 </div>
 <div class="spacer"></div>
-<div class="container">
+<div class="container-fluid">
     @if (ViewBag.Foods.Count == 0)
     {
         <div class="alert alert-danger" role="alert">
