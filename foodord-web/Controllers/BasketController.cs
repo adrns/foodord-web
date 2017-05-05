@@ -31,5 +31,12 @@ namespace foodord_web.Controllers
                     return Json(new { result = "failure", reason = "nosuchfood", basket = basket.Json() });
             }
         }
+
+        public ActionResult Clear()
+        {
+            basket.Clear();
+
+            return Json(new { result = "success", basket = basket.Json() });
+        }
     }
 }

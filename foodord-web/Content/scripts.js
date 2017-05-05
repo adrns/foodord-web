@@ -27,6 +27,15 @@ $(document).ready(function () {
             handleBasketResult(json);
         });
     });
+    $("button[data-basket='clear']").click(function (event) {
+        $.ajax({
+            url: "/Basket/Clear",
+            type: "POST",
+            dataType: "json"
+        }).done(function (json) {
+            handleBasketResult(json);
+        });
+    });
 });
 
 function handleBasketResult(json) {
@@ -51,7 +60,8 @@ function handleBasketResult(json) {
     });
 
     if (json.basket.foods.length == 0) {
-        $("#empty_basket_info").fadeIn();
+        $(".show-on-empty").fadeIn();
+        $(".hide-on-empty").fadeOut();
     }
 
     if ("failure" == json.result) {

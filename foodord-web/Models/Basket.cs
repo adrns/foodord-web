@@ -78,6 +78,11 @@ namespace foodord_web.Models
             return foods.Contains(food);
         }
 
+        public void Clear()
+        {
+            foods.Clear();
+        }
+
         public object Json()
         {
             List<object> foodList = new List<object>();

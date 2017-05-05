@@ -5,8 +5,11 @@
 <h2>Kosár tartalma</h2>
 <div class="spacer"></div>
 <div class="container-fluid">
-    @{ var emptyStyle = @Model.Empty() ? "" : "display: none;"; }
-    <div id="empty_basket_info" class="row" style="@emptyStyle">
+    @{
+        var emptyStyle = @Model.Empty() ? "" : "display: none;";
+        var fullStyle = @Model.Empty() ? "display: none;" : "";
+    }
+    <div class="row show-on-empty" style="@emptyStyle">
         <div class="col-xs-12">
             <div class="alert alert-info" role="alert">
                 <p>A kosár jelenleg üres.</p>
@@ -24,17 +27,26 @@
                     <li class="list-group-item food-list-item" data-food-id="@food.Id">
                         @food.Name <strong class="price-tag">(<span id="food-@food.Id-count">@count</span> db, <span id="food-@food.Id-cost">@cost</span> Ft)</strong>
                         <span class="pull-right">
-                            <button type="button" class="btn btn-xs btn-success" data-basket="add" data-food-id="@food.Id">
-                                <span class="glyphicon glyphicon-plus"></span>
-                            </button>
-                            <strong class="price-tag">@food.Price Ft</strong>
                             <button type="button" class="btn btn-xs btn-danger" data-basket="remove" data-food-id="@food.Id">
                                 <span class="glyphicon glyphicon-minus"></span>
+                            </button>
+                            <strong class="price-tag">@food.Price Ft</strong>
+                            <button type="button" class="btn btn-xs btn-success" data-basket="add" data-food-id="@food.Id">
+                                <span class="glyphicon glyphicon-plus"></span>
                             </button>
                         </span>
                     </li>
                 }
             </ul>
+        </div>
+    </div>
+    <div class="spacer"></div>
+    <div class="row hide-on-empty" style="@fullStyle">
+        <div class="col-xs-6">
+            <button type="button" class="btn btn-danger btn-lg" data-basket="clear">Kosár törlése</button>
+        </div>
+        <div class="col-xs-6">
+            <button type="button" class="btn btn-success btn-lg pull-right">Tovább a rendeléshez</button>
         </div>
     </div>
 </div>
