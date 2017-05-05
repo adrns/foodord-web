@@ -33,10 +33,6 @@ function handleBasketResult(json) {
     $("#food_count").html(json.basket.count);
     $("#basket_total").html(json.basket.total);
 
-    if (json.basket.foods.length == 0) {
-        //TODO
-    }
-
     $.each(json.basket.foods, function (key, food) {
         $("#food-" + food.foodId + "-cost").html(food.cost);
         $("#food-" + food.foodId + "-count").html(food.count);
@@ -53,6 +49,10 @@ function handleBasketResult(json) {
             });
         }
     });
+
+    if (json.basket.foods.length == 0) {
+        $("#empty_basket_info").fadeIn();
+    }
 
     if ("failure" == json.result) {
         switch (json.reason) {
