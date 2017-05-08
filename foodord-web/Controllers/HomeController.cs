@@ -35,5 +35,11 @@ namespace foodord_web.Controllers
 
             return View("Basket", basket);
         }
+
+        [HttpGet]
+        public ActionResult Order()
+        {
+            return View("Order");
+        }
     }
 }
