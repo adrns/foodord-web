@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using foodord_web.Models.Forms;
+using System.Web.Mvc;
 
 namespace foodord_web.Controllers
 {
@@ -38,6 +39,11 @@ namespace foodord_web.Controllers
 
         [HttpGet]
         public ActionResult Order()
+        {
+            return View("Order");
+        }
+
+        public ActionResult Order(OrderForm form)
         {
             return View("Order");
         }

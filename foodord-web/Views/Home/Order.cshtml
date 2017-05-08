@@ -1,1 +1,14 @@
-﻿
+﻿@using foodord_web.Models.Forms;
+
+@model OrderForm
+
+@using (Html.BeginForm("Order", "Home", FormMethod.Post))
+{
+    @Html.TextBoxFor(form => form.Name);
+    @Html.TextBoxFor(form => form.Phone);
+    @Html.TextBoxFor(form => form.ZipCode);
+    @Html.TextBoxFor(form => form.County);
+    @Html.TextBoxFor(form => form.Address);
+
+    <input type="submit" value="test submit" />
+}
