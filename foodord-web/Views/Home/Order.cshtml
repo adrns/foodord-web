@@ -1,4 +1,4 @@
-﻿@using foodord_web.Models.Forms;
+﻿@using foodord_web.Models;
 
 @model OrderForm
 <div class="spacer"></div>
@@ -64,12 +64,12 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    @SetErrorVariablesFor("County")
+                    @SetErrorVariablesFor("City")
                     <div class="col-sm-4">
-                        @Html.LabelFor(form => form.County, "Megye", new { @class = "col-sm-2 control-label" })
+                        @Html.LabelFor(form => form.City, "Település", new { @class = "col-sm-2 control-label" })
                     </div>
                     <div class="col-sm-8 @ViewBag.NextFormDivClass">
-                        @Html.TextBoxFor(form => form.County, new { @class = "form-control" })
+                        @Html.TextBoxFor(form => form.City, new { @class = "form-control" })
                         @if (ViewBag.NextInputHasError)
                         {
                             <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>

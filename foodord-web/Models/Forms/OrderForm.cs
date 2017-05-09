@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace foodord_web.Models.Forms
+namespace foodord_web.Models
 {
     public class OrderForm
     {
@@ -12,8 +12,8 @@ namespace foodord_web.Models.Forms
         [Required(ErrorMessage = "hiányzó irányítószám")]
         [RegularExpression("[1-9][0-9]{3}", ErrorMessage = "helytelen formátumú irányítószám")]
         public string ZipCode { get; set; }
-        [Required(ErrorMessage = "hiányzó megye")]
-        public string County { get; set; }
+        [Required(ErrorMessage = "hiányzó település")]
+        public string City { get; set; }
         [Required(ErrorMessage = "hiányzó lakcím")]
         public string Address { get; set; }
     }

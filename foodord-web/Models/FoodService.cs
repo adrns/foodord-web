@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace foodord_web.Models
 {
     public class FoodService
     {
         private FoodOrderingContext entities;
+        public FoodOrderingContext Entities { get { return entities; } }
 
         public FoodService()
         {
@@ -52,7 +51,13 @@ namespace foodord_web.Models
 
         public Food GetFood(int foodId)
         {
-            return entities.Foods.FirstOrDefault(food => food.Id == foodId);
+            return entities.Foods.AsNoTracking().FirstOrDefault(food => food.Id == foodId);
+        }
+
+        public void PlaceOrder(Order order)
+        {
+            entities.Orders.Add(order);
+            entities.SaveChanges();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using foodord_web.Models.Forms;
+﻿using foodord_web.Models;
 using System.Web.Mvc;
 
 namespace foodord_web.Controllers
@@ -45,6 +45,13 @@ namespace foodord_web.Controllers
 
         public ActionResult Order(OrderForm form)
         {
+            if (ModelState.IsValid && basket.Count() > 0)
+            {
+                foodService.PlaceOrder(Models.Order.Create(foodService.Entities.Orders, form, basket));
+                basket.Clear();
+                ViewBag.OrderSuccess = true;
+            }
+
             return View("Order");
         }
     }

@@ -9,6 +9,7 @@ namespace foodord_web.Models
         public enum BasketResult {Success, LimitReached, NoSuchFood};
         private FoodService foodService;
         private List<Food> foods;
+        public IReadOnlyList<Food> Foods { get { return foods.AsReadOnly(); } }
 
         public Basket(FoodService foodService)
         {

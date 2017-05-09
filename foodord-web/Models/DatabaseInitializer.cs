@@ -60,6 +60,7 @@ namespace foodord_web.Models
                     foodList.Add(foods.ElementAt(random.Next() % foods.Count));
                 }
                 context.Orders.Add(new Order {
+                    Name = "ELTE",
                     Address = "1117 Budapest, Pázmány Péter sétány 1/C",
                     Phone = "3613722500",
                     Foods = foodList,
