@@ -1,6 +1,7 @@
 ﻿@using foodord_web.Models;
 
 @model OrderForm
+<h2>Rendelés</h2>
 <div class="spacer"></div>
 @if (!ViewData.ModelState.IsValid)
 {
@@ -18,100 +19,118 @@
     </div>
 }
 <div class="container-fluid">
-    @using (Html.BeginForm("Order", "Home", FormMethod.Post, new { @class = "form-horizontal" }))
+    @if (ViewBag.Basket.Count() > 0)
     {
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="form-group">
-                    @SetErrorVariablesFor("Name")
-                    <div class="col-sm-4">
-                        @Html.LabelFor(form => form.Name, "Név", new { @class = "col-sm-2 control-label" })
+        using (Html.BeginForm("Order", "Home", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        @SetErrorVariablesFor("Name")
+                        <div class="col-sm-4">
+                            @Html.LabelFor(form => form.Name, "Név", new { @class = "col-sm-2 control-label" })
+                        </div>
+                        <div class="col-sm-8 @ViewBag.NextFormDivClass">
+                            @Html.TextBoxFor(form => form.Name, new { @class = "form-control" })
+                            @if (ViewBag.NextInputHasError)
+                            {
+                                <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                            }
+                        </div>
                     </div>
-                    <div class="col-sm-8 @ViewBag.NextFormDivClass">
-                        @Html.TextBoxFor(form => form.Name, new { @class = "form-control" })
-                        @if (ViewBag.NextInputHasError)
-                        {
-                            <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
-                        }
+                    <div class="form-group">
+                        @SetErrorVariablesFor("Phone")
+                        <div class="col-sm-4">
+                            @Html.LabelFor(form => form.Phone, "Telefonszám", new { @class = "col-sm-2 control-label" })
+                        </div>
+                        <div class="col-sm-8 @ViewBag.NextFormDivClass">
+                            @Html.TextBoxFor(form => form.Phone, new { @class = "form-control" })
+                            @if (ViewBag.NextInputHasError)
+                            {
+                                <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                            }
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    @SetErrorVariablesFor("Phone")
-                    <div class="col-sm-4">
-                        @Html.LabelFor(form => form.Phone, "Telefonszám", new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        @SetErrorVariablesFor("ZipCode")
+                        <div class="col-sm-4">
+                            @Html.LabelFor(form => form.ZipCode, "Irányítószám", new { @class = "col-sm-2 control-label" })
+                        </div>
+                        <div class="col-sm-8 @ViewBag.NextFormDivClass">
+                            @Html.TextBoxFor(form => form.ZipCode, new { @class = "form-control" })
+                            @if (ViewBag.NextInputHasError)
+                            {
+                                <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                            }
+                        </div>
                     </div>
-                    <div class="col-sm-8 @ViewBag.NextFormDivClass">
-                        @Html.TextBoxFor(form => form.Phone, new { @class = "form-control" })
-                        @if (ViewBag.NextInputHasError)
-                        {
-                            <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
-                        }
+                    <div class="form-group">
+                        @SetErrorVariablesFor("City")
+                        <div class="col-sm-4">
+                            @Html.LabelFor(form => form.City, "Település", new { @class = "col-sm-2 control-label" })
+                        </div>
+                        <div class="col-sm-8 @ViewBag.NextFormDivClass">
+                            @Html.TextBoxFor(form => form.City, new { @class = "form-control" })
+                            @if (ViewBag.NextInputHasError)
+                            {
+                                <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                            }
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @SetErrorVariablesFor("Address")
+                        <div class="col-sm-4">
+                            @Html.LabelFor(form => form.Address, "Cím", new { @class = "col-sm-2 control-label" })
+                        </div>
+                        <div class="col-sm-8 @ViewBag.NextFormDivClass">
+                            @Html.TextBoxFor(form => form.Address, new { @class = "form-control" })
+                            @if (ViewBag.NextInputHasError)
+                            {
+                                <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6">
-                <div class="form-group">
-                    @SetErrorVariablesFor("ZipCode")
-                    <div class="col-sm-4">
-                        @Html.LabelFor(form => form.ZipCode, "Irányítószám", new { @class = "col-sm-2 control-label" })
-                    </div>
-                    <div class="col-sm-8 @ViewBag.NextFormDivClass">
-                        @Html.TextBoxFor(form => form.ZipCode, new { @class = "form-control" })
-                        @if (ViewBag.NextInputHasError)
-                        {
-                            <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
-                        }
-                    </div>
+            <div class="spacer"></div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <a href="@Url.Action("Basket", "Home")" class="btn btn-warning btn-lg" data-basket="clear">Vissza a kosárhoz</a>
                 </div>
-                <div class="form-group">
-                    @SetErrorVariablesFor("City")
-                    <div class="col-sm-4">
-                        @Html.LabelFor(form => form.City, "Település", new { @class = "col-sm-2 control-label" })
-                    </div>
-                    <div class="col-sm-8 @ViewBag.NextFormDivClass">
-                        @Html.TextBoxFor(form => form.City, new { @class = "form-control" })
-                        @if (ViewBag.NextInputHasError)
-                        {
-                            <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
-                        }
-                    </div>
-                </div>
-                <div class="form-group">
-                    @SetErrorVariablesFor("Address")
-                    <div class="col-sm-4">
-                        @Html.LabelFor(form => form.Address, "Cím", new { @class = "col-sm-2 control-label" })
-                    </div>
-                    <div class="col-sm-8 @ViewBag.NextFormDivClass">
-                        @Html.TextBoxFor(form => form.Address, new { @class = "form-control" })
-                        @if (ViewBag.NextInputHasError)
-                        {
-                            <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
-                        }
-                    </div>
+                <div class="col-xs-6">
+                    <input type="submit" class="btn btn-success btn-lg pull-right" value="Rendelés leadása" />
                 </div>
             </div>
-        </div>
-        <div class="spacer"></div>
-        <div class="row">
-            <div class="col-xs-6">
-                <a href="@Url.Action("Basket", "Home")" class="btn btn-warning btn-lg" data-basket="clear">Vissza a kosárhoz</a>
+        }
+    }
+    else
+    {
+        if (ViewBag.OrderSuccess != null && ViewBag.OrderSuccess)
+        {
+            <div class="alert alert-success" role="alert">
+                <p>Sikeresen rögzítettük rendelését.</p>
             </div>
-            <div class="col-xs-6">
-                <input type="submit" class="btn btn-success btn-lg pull-right" value="Rendelés leadása" />
+        }
+        else
+        {
+            <div class="alert alert-info" role="alert">
+                <p>A kosár jelenleg üres.</p>
             </div>
-        </div>
+        }
     }
 </div>
 @helper SetErrorVariablesFor(string property)
 {
-if (ViewData.ModelState[property] != null && ViewData.ModelState[property].Errors.Any())
-{
-    ViewBag.NextFormDivClass = "has-error has-feedback";
-    ViewBag.NextInputHasError = true;
-}
-else
-{
-    ViewBag.NextFormDivClass = "";
-    ViewBag.NextInputHasError = false;
-}
+    if (ViewData.ModelState[property] != null && ViewData.ModelState[property].Errors.Any())
+    {
+        ViewBag.NextFormDivClass = "has-error has-feedback";
+        ViewBag.NextInputHasError = true;
+    }
+    else
+    {
+        ViewBag.NextFormDivClass = "";
+        ViewBag.NextInputHasError = false;
+    }
 }
