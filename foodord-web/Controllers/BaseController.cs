@@ -6,7 +6,7 @@ namespace foodord_web.Controllers
     public class BaseController : Controller
     {
         protected FoodService foodService;
-        protected Basket basket;
+        protected BasketModel basket;
 
         public BaseController()
         {
@@ -24,18 +24,20 @@ namespace foodord_web.Controllers
         {
             base.OnActionExecuted(filterContext);
 
-            Session["basket"] = basket;
+
+            foodService.SaveChanges();
+            Session["basket"] = basket.Id;
         }
 
-        private Basket CreateBasket()
+        private BasketModel CreateBasket()
         {
             object cached = Session["basket"];
-            if (cached != null && cached is Basket)
+            if (cached != null && cached is int)
             {
-                return (Basket)Session["basket"];
+                return new BasketModel(foodService, (int)Session["basket"]);
             }
 
-            return new Basket(foodService);
+            return new BasketModel(foodService);
         }
     }
 }

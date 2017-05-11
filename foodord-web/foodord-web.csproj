@@ -111,6 +111,7 @@
     <Content Include="Views\Home\Category.cshtml" />
     <Content Include="Views\Home\Basket.cshtml" />
     <Content Include="Views\Home\Order.cshtml" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Views\Shared\PageLayout.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -124,10 +125,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Basket.cs" />
+    <Compile Include="Models\BasketModel.cs" />
     <Compile Include="Models\DatabaseInitializer.cs" />
+    <Compile Include="Models\Entities\Basket.cs" />
     <Compile Include="Models\Entities\Category.cs" />
     <Compile Include="Models\Entities\Food.cs" />
+    <Compile Include="Models\Entities\FoodPack.cs" />
     <Compile Include="Models\FoodOrderingContext.cs" />
     <Compile Include="Models\Entities\Order.cs" />
     <Compile Include="Models\FoodService.cs" />

@@ -47,7 +47,7 @@ function handleBasketResult(json) {
         $("#food-" + food.foodId + "-count").html(food.count);
     });
     $(".food-list-item").each(function () {
-        let foodId = $(this).attr("data-food-id");
+        let foodId = parseInt($(this).attr("data-food-id"));
         let result = json.basket.foods.find(function (food) {
             return food.foodId === foodId;
         });

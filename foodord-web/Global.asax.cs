@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using foodord_web.Models;
+using System.Data.Entity;
 using System.Web.Mvc;
 using System.Web.Routing;
 
@@ -13,6 +11,8 @@ namespace foodord_web
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            Database.SetInitializer(new DatabaseInitializer());
+            new FoodOrderingContext().Database.Initialize(false);
         }
     }
 }

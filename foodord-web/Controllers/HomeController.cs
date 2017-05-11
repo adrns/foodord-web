@@ -8,7 +8,6 @@ namespace foodord_web.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            basket.GetFoodsByCount();
             ViewBag.IsHome = true;
             ViewBag.Categories = foodService.GetCategories();
             ViewBag.TopFoods = foodService.GetTopTenFoods();
@@ -47,7 +46,7 @@ namespace foodord_web.Controllers
         {
             if (ModelState.IsValid && basket.Count() > 0)
             {
-                foodService.PlaceOrder(Models.Order.Create(foodService.Entities.Orders, form, basket));
+                foodService.PlaceOrder(Models.Order.Create(foodService.Entities, form, basket));
                 basket.Clear();
                 ViewBag.OrderSuccess = true;
             }

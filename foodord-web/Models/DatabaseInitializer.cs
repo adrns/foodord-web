@@ -5,8 +5,8 @@ using System.Linq;
 
 namespace foodord_web.Models
 {
-    public class DatabaseInitializer : DropCreateDatabaseIfModelChanges<FoodOrderingContext>
-    //public class DatabaseInitializer : DropCreateDatabaseAlways<FoodOrderingContext>
+    //public class DatabaseInitializer : DropCreateDatabaseIfModelChanges<FoodOrderingContext>
+    public class DatabaseInitializer : CreateDatabaseIfNotExists<FoodOrderingContext>
     {
         protected override void Seed(FoodOrderingContext context)
         {
@@ -53,17 +53,21 @@ namespace foodord_web.Models
             var orders = new List<Order>();
             for (int i = 0; i < 32; i++)
             {
+                List<FoodPack> foodPacks = new List<FoodPack>();
                 int items = random.Next() % 5 + 1;
-                List<Food> foodList = new List<Food>();
                 for (int j = 0; j < items; j++)
                 {
-                    foodList.Add(foods.ElementAt(random.Next() % foods.Count));
+                    foodPacks.Add(new FoodPack
+                    {
+                        Food = foods.ElementAt(random.Next() % 3 + j * 3),
+                        Count = random.Next() % 3 + 1
+                    });
                 }
                 context.Orders.Add(new Order {
                     Name = "ELTE",
                     Address = "1117 Budapest, Pázmány Péter sétány 1/C",
                     Phone = "3613722500",
-                    Foods = foodList,
+                    Basket = new Basket { FoodPacks = foodPacks },
                     OrderDate = baseDate.AddSeconds(random.Next() % span) });
             }
 

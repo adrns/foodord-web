@@ -20,14 +20,12 @@ namespace foodord_web.Models
 
         public List<Food> GetTopTenFoods()
         {
-            var foods = entities.Orders
-                .SelectMany(order => order.Foods)
-                .GroupBy(food => food.Id)
-                .OrderByDescending(group => group.Count())
-                .Take(10)
-                .Select(group => group.FirstOrDefault());
-
-            return foods.ToList();
+            //var foods = entities.Orders
+            //    .SelectMany(order => order.OrderedFoodStacks)
+            //    .GroupBy(foodStack => foodStack.Food);
+            //
+            //return foods.ToList();
+            return entities.Foods.ToList();
         }
 
         public List<Food> GetFoodsByCategory(int category)
@@ -51,12 +49,29 @@ namespace foodord_web.Models
 
         public Food GetFood(int foodId)
         {
-            return entities.Foods.AsNoTracking().FirstOrDefault(food => food.Id == foodId);
+            return entities.Foods.FirstOrDefault(food => food.Id == foodId);
         }
 
         public void PlaceOrder(Order order)
         {
             entities.Orders.Add(order);
+            entities.SaveChanges();
+        }
+
+        public Basket NewBasket()
+        {
+            Basket basket = entities.Baskets.Create();
+            entities.Baskets.Add(basket);
+            return basket;
+        }
+
+        public Basket GetBasket(int basketId)
+        {
+            return entities.Baskets.FirstOrDefault(basket => basket.Id == basketId);
+        }
+
+        public void SaveChanges()
+        {
             entities.SaveChanges();
         }
     }

@@ -1,37 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Data.Entity;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace foodord_web.Models
 {
     public class Order
     {
-        [Key]
+        [Key, ForeignKey("Basket")]
         public int Id { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
         [StringLength(11)]
         public string Phone { get; set; }
         public DateTime OrderDate { get; set; }
-        public virtual ICollection<Food> Foods { get; set; }
-
-        public Order()
-        {
-            Foods = new HashSet<Food>();
-        }
+        public virtual Basket Basket { get; set; }
         
-        public static Order Create(DbSet<Order> orderSet, OrderForm formData, Basket basket)
+        public static Order Create(FoodOrderingContext context, OrderForm formData, BasketModel basket)
         {
-            Order order = orderSet.Create();
-            order.Name = formData.Name;
-            order.Address = formData.ZipCode + " " + formData.City + " " + formData.Address;
-            order.Phone = FormatPhone(formData.Phone);
-            order.OrderDate = DateTime.Now;
-            foreach (Food food in basket.Foods)
-            {
-                order.Foods.Add(food);
-            }
+            Order order = context.Orders.Create();
+            //order.Name = formData.Name;
+            //order.Address = formData.ZipCode + " " + formData.City + " " + formData.Address;
+            //order.Phone = FormatPhone(formData.Phone);
+            //order.OrderDate = DateTime.Now;
+            //foreach (Food food in basket.Foods)
+            //{
+            //    order.Foods.Add(context.Foods.FirstOrDefault(food2 => food2.Id == food.Id));
+            //}
 
             return order;
         }

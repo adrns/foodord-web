@@ -3,18 +3,25 @@ using System.Linq;
 
 namespace foodord_web.Models
 {
-    public class Basket
+    public class BasketModel
     {
         const int PRICE_LIMIT = 20000;
         public enum BasketResult {Success, LimitReached, NoSuchFood};
         private FoodService foodService;
-        private List<Food> foods;
-        public IReadOnlyList<Food> Foods { get { return foods.AsReadOnly(); } }
+        private Basket basket;
+        public int Id { get { return basket.Id; } }
+        public ICollection<FoodPack> FoodPacks { get { return basket.FoodPacks; } }
 
-        public Basket(FoodService foodService)
+        public BasketModel(FoodService foodService)
         {
             this.foodService = foodService;
-            foods = new List<Food>();
+            basket = foodService.NewBasket();
+        }
+
+        public BasketModel(FoodService foodService, int basketId)
+        {
+            this.foodService = foodService;
+            basket = foodService.GetBasket(basketId);
         }
 
         public BasketResult Add(int foodId)
@@ -32,7 +39,16 @@ namespace foodord_web.Models
             }
             else
             {
-                foods.Add(food);
+                FoodPack foodPack = basket.FoodPacks.FirstOrDefault(pack => pack.Food.Id == food.Id);
+                if (null == foodPack)
+                {
+                    basket.FoodPacks.Add(new FoodPack { Food = food, Count = 1 });
+                }
+                else
+                {
+                    foodPack.Count++;
+                }
+
                 return BasketResult.Success;
             }
         }
@@ -41,56 +57,51 @@ namespace foodord_web.Models
         {
             Food food = foodService.GetFood(foodId);
 
-            if (null == food)
+            if (null != food)
             {
-                return BasketResult.NoSuchFood;
+                FoodPack foodPack = basket.FoodPacks.FirstOrDefault(pack => pack.Food.Id == food.Id);
+                if (foodPack.Count == 1)
+                {
+                    basket.FoodPacks.Remove(foodPack);
+                }
+                else
+                {
+                    foodPack.Count--;
+                }
+
+                return BasketResult.Success;
             }
 
-            return foods.Remove(food) ? BasketResult.Success : BasketResult.NoSuchFood;
+            return BasketResult.NoSuchFood;
         }
 
         public int Total()
         {
-            int sum = 0;
-            foods.ForEach(food => sum += food.Price);
-
-            return sum;
+            return basket.FoodPacks.Select(pack => pack.Food.Price * pack.Count).Sum();
         }
 
         public int Count()
         {
-            return foods.Count();
-        }
-
-        public Dictionary<Food, int> GetFoodsByCount()
-        {
-            return foods
-                .GroupBy(food => food)
-                .ToDictionary(group => group.Key, group => group.Count());
+            return basket.FoodPacks.Select(pack => pack.Count).Sum();
         }
 
         public bool Empty()
         {
-            return 0 == foods.Count;
-        }
-
-        public bool Contains(Food food)
-        {
-            return foods.Contains(food);
+            return 0 == basket.FoodPacks.Count;
         }
 
         public void Clear()
         {
-            foods.Clear();
+            basket.FoodPacks.Clear();
         }
 
         public object Json()
         {
             List<object> foodList = new List<object>();
-            foreach (KeyValuePair<Food, int> pair in GetFoodsByCount())
+            foreach (FoodPack pack in basket.FoodPacks)
             {
-                Food food = pair.Key;
-                int count = pair.Value;
+                Food food = pack.Food;
+                int count = pack.Count;
                 int cost = count * food.Price;
                 foodList.Add(new
                 {
