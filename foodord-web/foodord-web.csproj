@@ -127,10 +127,9 @@
     </Compile>
     <Compile Include="Models\BasketModel.cs" />
     <Compile Include="Models\DatabaseInitializer.cs" />
-    <Compile Include="Models\Entities\Basket.cs" />
     <Compile Include="Models\Entities\Category.cs" />
     <Compile Include="Models\Entities\Food.cs" />
-    <Compile Include="Models\Entities\FoodPack.cs" />
+    <Compile Include="Models\Entities\OrderedFood.cs" />
     <Compile Include="Models\FoodOrderingContext.cs" />
     <Compile Include="Models\Entities\Order.cs" />
     <Compile Include="Models\FoodService.cs" />

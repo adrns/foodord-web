@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace foodord_web.Models
@@ -20,12 +21,12 @@ namespace foodord_web.Models
 
         public List<Food> GetTopTenFoods()
         {
-            //var foods = entities.Orders
-            //    .SelectMany(order => order.OrderedFoodStacks)
-            //    .GroupBy(foodStack => foodStack.Food);
-            //
-            //return foods.ToList();
-            return entities.Foods.ToList();
+            return entities.OrderedFoods
+                .GroupBy(orderedFood => orderedFood.Food)
+                .OrderByDescending(group => group.Count())
+                .Take(10)
+                .Select(group => group.Key)
+                .ToList();
         }
 
         public List<Food> GetFoodsByCategory(int category)
@@ -52,27 +53,47 @@ namespace foodord_web.Models
             return entities.Foods.FirstOrDefault(food => food.Id == foodId);
         }
 
-        public void PlaceOrder(Order order)
+        public void PlaceOrder(string name, string address, string phone, IEnumerable<int> foods)
         {
-            entities.Orders.Add(order);
+            Order newOrder = entities.Orders.Create();
+            newOrder.Name = name;
+            newOrder.Address = address;
+            newOrder.Phone = FormatPhone(phone);
+            newOrder.OrderDate = DateTime.Now;
+            newOrder.OrderedFoods = new List<OrderedFood>();
+            foreach (int foodId in foods)
+            {
+                OrderedFood orderedFood = entities.OrderedFoods.Create();
+                orderedFood.Food = GetFood(foodId);
+                newOrder.OrderedFoods.Add(orderedFood);
+            }
+            entities.Orders.Add(newOrder);
             entities.SaveChanges();
-        }
-
-        public Basket NewBasket()
-        {
-            Basket basket = entities.Baskets.Create();
-            entities.Baskets.Add(basket);
-            return basket;
-        }
-
-        public Basket GetBasket(int basketId)
-        {
-            return entities.Baskets.FirstOrDefault(basket => basket.Id == basketId);
         }
 
         public void SaveChanges()
         {
             entities.SaveChanges();
+        }
+
+        public int GetPrice(List<int> foodList)
+        {
+            return entities.Foods.Sum(food => foodList.Contains(food.Id) ? food.Price : 0);
+        }
+
+        private static string FormatPhone(string phone)
+        {
+            phone = phone.Replace(" ", "").Replace("-", "");
+            if (phone.StartsWith("+"))
+            {
+                return phone.Substring(3);
+            }
+            else if (phone.Length >= 10)
+            {
+                return phone.Substring(2);
+            }
+
+            return phone;
         }
     }
 }

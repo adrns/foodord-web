@@ -46,7 +46,8 @@ namespace foodord_web.Controllers
         {
             if (ModelState.IsValid && basket.Count() > 0)
             {
-                foodService.PlaceOrder(Models.Order.Create(foodService.Entities, form, basket));
+                string address = form.ZipCode + " " + form.City + " " + form.Address;
+                foodService.PlaceOrder(form.Name, address, form.Phone, basket.Foods);
                 basket.Clear();
                 ViewBag.OrderSuccess = true;
             }

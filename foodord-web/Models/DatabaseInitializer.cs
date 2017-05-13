@@ -53,21 +53,25 @@ namespace foodord_web.Models
             var orders = new List<Order>();
             for (int i = 0; i < 32; i++)
             {
-                List<FoodPack> foodPacks = new List<FoodPack>();
+                List<OrderedFood> orderedFoods = new List<OrderedFood>();
                 int items = random.Next() % 5 + 1;
                 for (int j = 0; j < items; j++)
                 {
-                    foodPacks.Add(new FoodPack
+                    Food nextFood = foods.ElementAt(random.Next() % 3 + j * 3);
+                    int count = random.Next() % 3 + 1;
+                    for (int k = 0; k < count; k++)
                     {
-                        Food = foods.ElementAt(random.Next() % 3 + j * 3),
-                        Count = random.Next() % 3 + 1
-                    });
+                        orderedFoods.Add(new OrderedFood
+                        {
+                            Food = nextFood
+                        });
+                    }
                 }
                 context.Orders.Add(new Order {
                     Name = "ELTE",
                     Address = "1117 Budapest, Pázmány Péter sétány 1/C",
                     Phone = "3613722500",
-                    Basket = new Basket { FoodPacks = foodPacks },
+                    OrderedFoods = orderedFoods,
                     OrderDate = baseDate.AddSeconds(random.Next() % span) });
             }
 

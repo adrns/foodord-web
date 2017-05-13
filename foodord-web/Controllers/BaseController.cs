@@ -24,17 +24,15 @@ namespace foodord_web.Controllers
         {
             base.OnActionExecuted(filterContext);
 
-
-            foodService.SaveChanges();
-            Session["basket"] = basket.Id;
+            Session["foodsInBasket"] = basket.Foods;
         }
 
         private BasketModel CreateBasket()
         {
-            object cached = Session["basket"];
-            if (cached != null && cached is int)
+            object foodsInBasket = Session["foodsInBasket"];
+            if (foodsInBasket != null && foodsInBasket is int[])
             {
-                return new BasketModel(foodService, (int)Session["basket"]);
+                return new BasketModel(foodService, (int[])foodsInBasket);
             }
 
             return new BasketModel(foodService);

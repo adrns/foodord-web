@@ -8,20 +8,19 @@ namespace foodord_web.Models
         const int PRICE_LIMIT = 20000;
         public enum BasketResult {Success, LimitReached, NoSuchFood};
         private FoodService foodService;
-        private Basket basket;
-        public int Id { get { return basket.Id; } }
-        public ICollection<FoodPack> FoodPacks { get { return basket.FoodPacks; } }
+        private List<int> foods;
+        public int[] Foods { get { return foods.ToArray(); } }
 
         public BasketModel(FoodService foodService)
         {
             this.foodService = foodService;
-            basket = foodService.NewBasket();
+            foods = new List<int>();
         }
 
-        public BasketModel(FoodService foodService, int basketId)
+        public BasketModel(FoodService foodService, int[] foods)
         {
             this.foodService = foodService;
-            basket = foodService.GetBasket(basketId);
+            this.foods = new List<int>(foods);
         }
 
         public BasketResult Add(int foodId)
@@ -39,15 +38,7 @@ namespace foodord_web.Models
             }
             else
             {
-                FoodPack foodPack = basket.FoodPacks.FirstOrDefault(pack => pack.Food.Id == food.Id);
-                if (null == foodPack)
-                {
-                    basket.FoodPacks.Add(new FoodPack { Food = food, Count = 1 });
-                }
-                else
-                {
-                    foodPack.Count++;
-                }
+                foods.Add(food.Id);
 
                 return BasketResult.Success;
             }
@@ -57,18 +48,8 @@ namespace foodord_web.Models
         {
             Food food = foodService.GetFood(foodId);
 
-            if (null != food)
+            if (null != food && foods.Remove(food.Id))
             {
-                FoodPack foodPack = basket.FoodPacks.FirstOrDefault(pack => pack.Food.Id == food.Id);
-                if (foodPack.Count == 1)
-                {
-                    basket.FoodPacks.Remove(foodPack);
-                }
-                else
-                {
-                    foodPack.Count--;
-                }
-
                 return BasketResult.Success;
             }
 
@@ -77,31 +58,37 @@ namespace foodord_web.Models
 
         public int Total()
         {
-            return basket.FoodPacks.Select(pack => pack.Food.Price * pack.Count).Sum();
+            return foodService.GetPrice(foods);
         }
 
         public int Count()
         {
-            return basket.FoodPacks.Select(pack => pack.Count).Sum();
+            return foods.Count;
         }
 
         public bool Empty()
         {
-            return 0 == basket.FoodPacks.Count;
+            return 0 == foods.Count;
         }
 
         public void Clear()
         {
-            basket.FoodPacks.Clear();
+            foods.Clear();
+        }
+
+        public IEnumerable<KeyValuePair<Food, int>> GroupFoodsByAmount()
+        {
+            return foods.GroupBy(foodId => foodId).Select(group => new KeyValuePair<Food, int>(foodService.GetFood(group.Key), group.Count()));
         }
 
         public object Json()
         {
-            List<object> foodList = new List<object>();
-            foreach (FoodPack pack in basket.FoodPacks)
+            var foodCountPairs = GroupFoodsByAmount();
+            var foodList = new List<object>();
+            foreach (KeyValuePair<Food, int> pair in foodCountPairs)
             {
-                Food food = pack.Food;
-                int count = pack.Count;
+                Food food = pair.Key;
+                int count = pair.Value;
                 int cost = count * food.Price;
                 foodList.Add(new
                 {

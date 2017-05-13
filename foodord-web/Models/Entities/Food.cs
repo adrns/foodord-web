@@ -13,11 +13,11 @@ namespace foodord_web.Models
         public int Price { get; set; }
         public bool Spicy { get; set; }
         public bool Vegetarian { get; set; }
-        public virtual ICollection<FoodPack> FoodPacks { get; set; }
+        public virtual ICollection<OrderedFood> OrderedFoods { get; set; }
 
         public Food()
         {
-            FoodPacks = new List<FoodPack>();
+            OrderedFoods = new List<OrderedFood>();
         }
     }
 }
