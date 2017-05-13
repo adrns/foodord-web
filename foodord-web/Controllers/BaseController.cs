@@ -5,7 +5,7 @@ namespace foodord_web.Controllers
 {
     public class BaseController : Controller
     {
-        protected FoodService foodService;
+        protected IFoodService foodService;
         protected BasketModel basket;
 
         public BaseController()

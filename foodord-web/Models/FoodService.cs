@@ -4,10 +4,9 @@ using System.Linq;
 
 namespace foodord_web.Models
 {
-    public class FoodService
+    public class FoodService : IFoodService
     {
         private FoodOrderingContext entities;
-        public FoodOrderingContext Entities { get { return entities; } }
 
         public FoodService()
         {
@@ -68,11 +67,6 @@ namespace foodord_web.Models
                 newOrder.OrderedFoods.Add(orderedFood);
             }
             entities.Orders.Add(newOrder);
-            entities.SaveChanges();
-        }
-
-        public void SaveChanges()
-        {
             entities.SaveChanges();
         }
 

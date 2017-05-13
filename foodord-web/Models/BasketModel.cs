@@ -7,17 +7,17 @@ namespace foodord_web.Models
     {
         const int PRICE_LIMIT = 20000;
         public enum BasketResult {Success, LimitReached, NoSuchFood};
-        private FoodService foodService;
+        private IFoodService foodService;
         private List<int> foods;
         public int[] Foods { get { return foods.ToArray(); } }
 
-        public BasketModel(FoodService foodService)
+        public BasketModel(IFoodService foodService)
         {
             this.foodService = foodService;
             foods = new List<int>();
         }
 
-        public BasketModel(FoodService foodService, int[] foods)
+        public BasketModel(IFoodService foodService, int[] foods)
         {
             this.foodService = foodService;
             this.foods = new List<int>(foods);
