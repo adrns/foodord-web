@@ -58,7 +58,7 @@ namespace foodord_web.Models
             newOrder.Name = name;
             newOrder.Address = address;
             newOrder.Phone = FormatPhone(phone);
-            newOrder.OrderDate = DateTime.Now;
+            newOrder.Completed = false;
             newOrder.OrderedFoods = new List<OrderedFood>();
             foreach (int foodId in foods)
             {

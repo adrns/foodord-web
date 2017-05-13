@@ -134,8 +134,8 @@
     <Compile Include="Models\Entities\Order.cs" />
     <Compile Include="Models\FoodService.cs" />
     <Compile Include="Models\Forms\OrderForm.cs" />
+    <Compile Include="Models\IFoodService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />

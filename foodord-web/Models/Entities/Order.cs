@@ -13,7 +13,7 @@ namespace foodord_web.Models
         public string Address { get; set; }
         [StringLength(11)]
         public string Phone { get; set; }
-        public DateTime OrderDate { get; set; }
+        public bool Completed { get; set; } 
         public virtual ICollection<OrderedFood> OrderedFoods { get; set; }
 
         public Order()

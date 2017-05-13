@@ -47,8 +47,6 @@ namespace foodord_web.Models
             foods.ForEach(e => context.Foods.Add(e));
 
             Random random = new Random(45126);
-            int span = 60 * 60 * 24 * 4;
-            DateTime baseDate = DateTime.Now.AddMonths(-2);
 
             var orders = new List<Order>();
             for (int i = 0; i < 32; i++)
@@ -72,7 +70,8 @@ namespace foodord_web.Models
                     Address = "1117 Budapest, Pázmány Péter sétány 1/C",
                     Phone = "3613722500",
                     OrderedFoods = orderedFoods,
-                    OrderDate = baseDate.AddSeconds(random.Next() % span) });
+                    Completed = false
+                });
             }
 
             context.SaveChanges();
