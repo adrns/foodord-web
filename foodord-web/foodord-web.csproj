@@ -128,6 +128,7 @@
     <Compile Include="Models\BasketModel.cs" />
     <Compile Include="Models\DatabaseInitializer.cs" />
     <Compile Include="Models\Entities\Category.cs" />
+    <Compile Include="Models\Entities\Employee.cs" />
     <Compile Include="Models\Entities\Food.cs" />
     <Compile Include="Models\Entities\OrderedFood.cs" />
     <Compile Include="Models\FoodOrderingContext.cs" />
